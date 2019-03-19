@@ -1,10 +1,10 @@
-package org.kimbs.demo.user.service;
+package org.kimbs.jpademo.user.service;
 
 import java.util.List;
 import java.util.Optional;
 
-import org.kimbs.demo.user.domain.User;
-import org.kimbs.demo.user.repository.UserRepository;
+import org.kimbs.jpademo.user.domain.User;
+import org.kimbs.jpademo.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,9 +23,9 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public User findById(Long id) {
+    public Optional<User> findById(Long id) {
         Optional<User> user = userRepository.findById(id);
-        return user.get();
+        return user;
     }
 
     public void delete(Long id) {

@@ -1,9 +1,10 @@
-package org.kimbs.demo.user.controller;
+package org.kimbs.jpademo.user.controller;
 
 import java.util.List;
+import java.util.Optional;
 
-import org.kimbs.demo.user.domain.User;
-import org.kimbs.demo.user.service.UserService;
+import org.kimbs.jpademo.user.domain.User;
+import org.kimbs.jpademo.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -38,39 +39,41 @@ public class UserController {
     }
 
     @GetMapping(value = "/user/{id}")
-    public ResponseEntity<User> selectOne(@PathVariable Long id) {
-        final User selected = userService.findById(id);
+    public ResponseEntity<Optional<User>> selectOne(@PathVariable Long id) {
+        final Optional<User> selected = userService.findById(id);
         
-        return new ResponseEntity<User>(selected, HttpStatus.OK);
+        return new ResponseEntity<Optional<User>>(selected, HttpStatus.OK);
     }
 
     @PostMapping(value = "/user")
     public ResponseEntity<User> create(@RequestBody final User user, final UriComponentsBuilder uriBuilder) {
-        System.out.println(user);
         User created = userService.create(user);
         final HttpHeaders headers = new HttpHeaders();
         headers.setLocation(uriBuilder.path("/api/user/{id}").buildAndExpand(created.getId()).toUri());
+
         return new ResponseEntity<>(created, headers, HttpStatus.CREATED);
     } 
 
     @PutMapping(value = "/user/{id}")
-	public ResponseEntity<User> update(@PathVariable Long id, @RequestBody final User user) {
-		User updated = userService.findById(id);
-		if (updated == null) {
+	public ResponseEntity<Optional<User>> update(@PathVariable Long id, @RequestBody final User user) {
+		Optional<User> updated = userService.findById(id);
+		if (!updated.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-		user.setId(updated.getId());
-		updated = userService.create(user);
+		user.setId(updated.get().getId());
+        updated = Optional.of(userService.create(user));
+        
 		return new ResponseEntity<>(updated, HttpStatus.OK);
     }
     
     @DeleteMapping(value = "/user/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Long id) {
-		User deleted = userService.findById(id);
-		if (deleted == null) {
+		Optional<User> deleted = userService.findById(id);
+		if (!deleted.isPresent()) {
             return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
         }
-		userService.delete(id);
-		return new ResponseEntity<Void>(HttpStatus.OK);
+        userService.delete(id);
+        
+        return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 }
