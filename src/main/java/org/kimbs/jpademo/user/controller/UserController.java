@@ -39,10 +39,14 @@ public class UserController {
     }
 
     @GetMapping(value = "/user/{id}")
-    public ResponseEntity<Optional<User>> selectOne(@PathVariable Long id) {
+    public ResponseEntity<User> selectOne(@PathVariable Long id) {
         final Optional<User> selected = userService.findById(id);
+
+        if (!selected.isPresent()) {
+            return new ResponseEntity<User>(HttpStatus.NO_CONTENT);
+        }
         
-        return new ResponseEntity<Optional<User>>(selected, HttpStatus.OK);
+        return new ResponseEntity<User>(selected.get(), HttpStatus.OK);
     }
 
     @PostMapping(value = "/user")
@@ -55,15 +59,15 @@ public class UserController {
     } 
 
     @PutMapping(value = "/user/{id}")
-	public ResponseEntity<Optional<User>> update(@PathVariable Long id, @RequestBody final User user) {
+	public ResponseEntity<User> update(@PathVariable Long id, @RequestBody final User user) {
 		Optional<User> updated = userService.findById(id);
 		if (!updated.isPresent()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
         }
 		user.setId(updated.get().getId());
         updated = Optional.of(userService.create(user));
         
-		return new ResponseEntity<>(updated, HttpStatus.OK);
+		return new ResponseEntity<>(updated.get(), HttpStatus.OK);
     }
     
     @DeleteMapping(value = "/user/{id}")
