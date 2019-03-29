@@ -1,2 +1,2 @@
-## JPA + Elasticsearch 연습
+## JPA 연습
 ---
