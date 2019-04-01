@@ -19,6 +19,10 @@ spring:
             compressed: true
             cache: true
 
+    jpa:
+        hibernate:
+            ddl-auto: update
+
 server:
     compression:
         enabled: true
