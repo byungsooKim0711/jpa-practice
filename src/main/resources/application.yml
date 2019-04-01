@@ -27,12 +27,12 @@ server:
     error:
         whitelabel:
             enabled: true
-
+            
 logging:
     level:
         root: true
 
-
+        
 ---
 
 ## Test configuration
