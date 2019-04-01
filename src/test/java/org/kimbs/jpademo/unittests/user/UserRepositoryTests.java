@@ -1,4 +1,4 @@
-package org.kimbs.jpademo.unittests;
+package org.kimbs.jpademo.unittests.user;
 
 import static org.junit.Assert.assertEquals;
 

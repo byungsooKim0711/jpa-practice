@@ -1,4 +1,4 @@
-package org.kimbs.jpademo.unittests;
+package org.kimbs.jpademo.unittests.user;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
