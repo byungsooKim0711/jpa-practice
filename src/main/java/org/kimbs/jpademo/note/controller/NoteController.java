@@ -39,15 +39,14 @@ public class NoteController {
     }
 
     @GetMapping(value = "/user/{userId}/note/{noteId}")
-    public ResponseEntity<Note> getNoteById(@PathVariable Long userId, @PathVariable Long noteId) {
-        final Note note = noteService.findByIdAndUserId(noteId, userId);
+    public ResponseEntity<Optional<Note>> getNoteById(@PathVariable Long userId, @PathVariable Long noteId) {
+        final Optional<Note> note = noteService.findByIdAndUserId(noteId, userId);
 
-        return new ResponseEntity<Note>(note, HttpStatus.OK);
+        return new ResponseEntity<>(note, HttpStatus.OK);
     }
 
     @PostMapping(value = "/user/{userId}/note")
     public ResponseEntity<Note> postMethodName(@PathVariable Long userId, @RequestBody final Note note, final UriComponentsBuilder uriBuilder) {
-
         Optional<User> user = userService.findById(userId);
 
         if (!user.isPresent()) {
@@ -65,35 +64,33 @@ public class NoteController {
 
     @DeleteMapping(value = "/user/{userId}/note/{noteId}")
     public ResponseEntity<Void> deleteNoteById(@PathVariable Long userId, @PathVariable Long noteId) {
-        Note deleted = noteService.findByIdAndUserId(noteId, userId);
+        Optional<Note> deleted = noteService.findByIdAndUserId(noteId, userId);
 
         if (deleted == null) {
             return ResponseEntity.notFound().build();
         }
 
         noteService.deleteNoteById(noteId);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return ResponseEntity.ok().build();
     }
 
     @PutMapping(value = "/user/{userId}/note/{noteId}")
-    public ResponseEntity<Note> updateNoteById(@PathVariable Long userId, @PathVariable Long noteId, @RequestBody final Note note) {
-
+    public ResponseEntity<Optional<Note>> updateNoteById(@PathVariable Long userId, @PathVariable Long noteId, @RequestBody final Note note) {
         Optional<User> user = userService.findById(userId);
-
         if (!user.isPresent()) {
             return ResponseEntity.notFound().build();
         }
 
         note.setUser(user.get());
 
-        Note updated = noteService.findByIdAndUserId(noteId, userId);
+        Optional<Note> updated = noteService.findByIdAndUserId(noteId, userId);
 
         if (updated == null) {
             return ResponseEntity.notFound().build();
         }
 
-        note.setId(updated.getId());
-        updated = noteService.create(note);
+        note.setId(updated.get().getId());
+        updated = Optional.of(noteService.create(note));
 		return new ResponseEntity<>(updated, HttpStatus.OK);
     }
 }

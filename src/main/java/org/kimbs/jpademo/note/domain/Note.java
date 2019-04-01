@@ -29,8 +29,8 @@ public class Note {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Length(max = 200)
-    @NotEmpty
+    @Length(max = 200, message = "should be message length less than 200")
+    @NotEmpty(message = "should be message length greater than 0")
     private String message;
 
     @ManyToOne(fetch = FetchType.LAZY)

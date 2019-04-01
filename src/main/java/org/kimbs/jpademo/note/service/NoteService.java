@@ -1,6 +1,7 @@
 package org.kimbs.jpademo.note.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.kimbs.jpademo.note.domain.Note;
 import org.kimbs.jpademo.note.repository.NoteRepository;
@@ -22,7 +23,7 @@ public class NoteService {
         return noteRepository.findByUserId(id);
     }
 
-    public Note findByIdAndUserId(Long id, Long userId) {
+    public Optional<Note> findByIdAndUserId(Long id, Long userId) {
         return noteRepository.findByIdAndUserId(id, userId);
     }
 
