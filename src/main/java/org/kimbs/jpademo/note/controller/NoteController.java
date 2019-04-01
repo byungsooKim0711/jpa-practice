@@ -94,8 +94,6 @@ public class NoteController {
 
         note.setId(updated.getId());
         updated = noteService.create(note);
-        System.out.println("final note: " + note);
-        System.out.println("updated: " + updated);
 		return new ResponseEntity<>(updated, HttpStatus.OK);
     }
 }
