@@ -3,18 +3,14 @@ package org.kimbs.jpademo;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
-import org.kimbs.jpademo.unittests.user.UserControllerTests3;
-import org.kimbs.jpademo.unittests.user.UserRepositoryTests;
-import org.kimbs.jpademo.unittests.user.UserServiceTests;
-import org.kimbs.jpademo.unittests.user.UserValidationTests;
+import org.kimbs.jpademo.unittests.note.NoteSuiteTests;
+import org.kimbs.jpademo.unittests.user.UserSuiteTests;
 
 @RunWith(Suite.class)
 @SuiteClasses(
     value = {
-          UserRepositoryTests.class
-        , UserValidationTests.class
-        , UserServiceTests.class
-        , UserControllerTests3.class
+          UserSuiteTests.class
+        , NoteSuiteTests.class
     })
 public class SuiteTests {
 
