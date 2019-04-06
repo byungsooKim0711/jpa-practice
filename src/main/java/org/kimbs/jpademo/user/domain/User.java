@@ -20,17 +20,19 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, name = "login_id")
+    @Column(name = "login_id", nullable = false)
     @NotEmpty(message = "loginId is required")
     @Length(max = 30, message = "should be loginid length less than 30")
     private String loginId;
 
-    @Column(nullable = false)
+    @Column(name = "password", nullable = false)
     @NotEmpty(message = "password is required")
     private String password;
 
+    @Column(name = "email")
     @Email(message = "wrong email")
     private String email;
 
+    @Column(name = "phone")
     private String phone;
 }

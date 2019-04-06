@@ -1,5 +1,6 @@
 package org.kimbs.jpademo.note.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -29,6 +30,7 @@ public class Note {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "message")
     @Length(max = 200, message = "should be message length less than 200")
     @NotEmpty(message = "should be message length greater than 0")
     private String message;
