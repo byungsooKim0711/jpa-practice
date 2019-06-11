@@ -58,10 +58,10 @@ public class UserValidationTests {
     }
 
     @Test
-    public void whenLoginIDIsMoreThan30() {
+    public void whenLoginIDIsMoreThan36() {
         User user = new User();
         user.setId(1234L);
-        user.setLoginId("asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf");
+        user.setLoginId("aaaaaaaaaabbbbbbbbbbccccccccccdddddddddd");
         user.setPassword("kimbs");
         user.setEmail("vlakd0711@naver.com");
         user.setPhone("010-0000-0000");
@@ -71,7 +71,7 @@ public class UserValidationTests {
         assertEquals(1, violations.size());
 
         String message = validator.validateProperty(user, "loginId").iterator().next().getMessage();
-        assertEquals("should be loginid length less than 30", message);
+        assertEquals("should be loginId length less than 36", message);
     }
 
     @Test
