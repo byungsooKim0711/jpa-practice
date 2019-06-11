@@ -22,7 +22,7 @@ public class User {
 
     @Column(name = "login_id", nullable = false)
     @NotEmpty(message = "loginId is required")
-    @Length(max = 30, message = "should be loginid length less than 30")
+    @Length(max = 36, message = "should be loginId length less than 36")
     private String loginId;
 
     @Column(name = "password", nullable = false)
