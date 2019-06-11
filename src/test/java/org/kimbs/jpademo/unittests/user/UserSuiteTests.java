@@ -11,10 +11,11 @@ import org.kimbs.jpademo.unittests.user.UserValidationTests;
 @RunWith(Suite.class)
 @SuiteClasses(
     value = {
-          UserRepositoryTests.class
-        , UserValidationTests.class
-        , UserServiceTests.class
-        , UserControllerTests3.class
+              UserRepositoryTests.class
+            , UserValidationTests.class
+            , UserServiceTests.class
+            , UserControllerTests3.class
+            , UserControllerTests4.class
     })
 public class UserSuiteTests {
 
